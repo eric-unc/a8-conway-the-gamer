@@ -1,2 +1,4 @@
 # a8-conway-the-gamer
-The final boss? Conway, please put down your controller. It's your brother's turn on the Xbox.
+This is [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway's_Game_of_Life).
+
+Images created by me.
