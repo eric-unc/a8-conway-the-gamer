@@ -23,13 +23,16 @@ public class SetupController implements ActionListener {
 		var matcher = pattern.matcher(view.getEntry());
 		
 		try {
+			matcher.find();
+			
 			var width = Integer.parseInt(matcher.group(1));
-			var length = Integer.parseInt(matcher.group(2));
+			var height = Integer.parseInt(matcher.group(2));
 			
 			model.setWidth(width);
-			model.setLength(length);
+			model.setHeight(height);
 		}catch(Exception ex){
 			view.setMessage(SetupView.ERROR_MESSAGE);
+			
 		}
 	}
 }

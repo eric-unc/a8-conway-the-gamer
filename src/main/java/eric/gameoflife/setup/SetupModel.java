@@ -1,12 +1,12 @@
 package eric.gameoflife.setup;
 
 public class SetupModel {
-	public int width;
-	public int length;
+	private int width;
+	private int height;
 	
 	public SetupModel(){
 		width = -1;
-		length = -1;
+		height = -1;
 	}
 
 	public int getWidth(){
@@ -20,14 +20,14 @@ public class SetupModel {
 		this.width = width;
 	}
 
-	public int getLength(){
-		return length;
+	public int getHeight(){
+		return height;
 	}
 
-	public void setLength(int length){
-		if(length < 10 || length > 500)
-			throw new IllegalArgumentException("Invalid length");
+	public void setHeight(int height){
+		if(height < 10 || height > 500)
+			throw new IllegalArgumentException("Invalid height");
 		
-		this.length = length;
+		this.height = height;
 	}
 }
