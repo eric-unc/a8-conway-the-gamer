@@ -2,12 +2,14 @@ package eric.gameoflife;
 
 import javax.swing.JFrame;
 
-import eric.gameoflife.setup.SetupView;
+import eric.gameoflife.setup.*;
 
 public class Main {
 
 	public static void main(String[] args){
+		var model = new SetupModel();
 		var view = new SetupView();
+		var controller = new SetupController(model, view);
 		
 		var frame = new JFrame();
 		frame.setTitle("Setup");

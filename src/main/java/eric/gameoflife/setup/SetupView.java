@@ -9,14 +9,18 @@ import javax.swing.*;
 @SuppressWarnings("serial")
 public class SetupView extends JPanel {
 	
+	public static final String DEFAULT_ENTRY = "10x10";
+	
 	public static final String DEFAULT_MESSAGE = "<html>What size do you want your cell to be?" + "<br />" +
-			"Please enter a pair of numbers, such as 6x10." + "<br />" +
-			"Width comes first (in this case 6), and then height (in this case 10).</html>";
+			"Please enter a pair of numbers, such as 16x20." + "<br />" +
+			"Width comes first (in this case 16), and then height (in this case 20)." + "<br />" +
+			"The width/height must be at least 10, and no more than 500.</html>";
 	
 	public static final String ERROR_MESSAGE = "<html>What are you, an idiot?" + "<br />" +
 			"The format was very clearly specified." + "<br />" +
-			"Please enter a pair of numbers, such as 6x10." + "<br />" +
-			"Width comes first (in this case 6), and then height (in this case 10).</html>";;
+			"Please enter a pair of numbers, such as 16x20." + "<br />" +
+			"Width comes first (in this case 16), and then height (in this case 20)." + "<br />" +
+			"The width/height must be at least 10, and no more than 500.</html>";
 	
 	private JTextField entry;
 	private JButton enter;
@@ -25,7 +29,7 @@ public class SetupView extends JPanel {
 	public SetupView(){
 		setLayout(new BorderLayout());
 		
-		entry = new JTextField("10x10");
+		entry = new JTextField(DEFAULT_ENTRY);
 		
 		add(entry, BorderLayout.WEST);
 		
@@ -37,6 +41,10 @@ public class SetupView extends JPanel {
 		message.setSize(new Dimension(200, 200));
 		
 		add(message, BorderLayout.EAST);
+	}
+	
+	public String getEntry(){
+		return entry.getText();
 	}
 	
 	public void setMessage(String newMessage){
