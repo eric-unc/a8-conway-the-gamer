@@ -3,9 +3,9 @@ package eric.gameoflife.model;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import eric.gameoflife.Main;
-
 public class FieldModel implements Iterable<CellModel> {
+	
+	public static final boolean IS_TARIC_MODE = true; // TODO: convert into setting
 
 	private CellModel[][] field; // This y, then x
 						// This is a bit confusing but arrays are go like...
@@ -34,7 +34,7 @@ public class FieldModel implements Iterable<CellModel> {
 	}
 	
 	private boolean isInputValid(int x, int y){
-		if(Main.IS_TARIC_MODE)
+		if(IS_TARIC_MODE)
 			return true;
 		
 		return maxY >= y && y >= 0 && maxX >= x && x >= 0;
@@ -123,7 +123,7 @@ public class FieldModel implements Iterable<CellModel> {
 		var neighbors = getNeighbors(cell);
 		var ret = new ArrayList<CellModel>();
 		
-		neighbors.parallelStream().filter(neighbor -> neighbor.isAlive()).forEach(ret::add);
+		neighbors.stream().filter(neighbor -> neighbor.isAlive()).forEach(ret::add);
 		
 		return ret;
 	}
