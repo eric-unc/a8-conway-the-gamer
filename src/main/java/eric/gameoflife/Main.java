@@ -4,7 +4,9 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
+import eric.gameoflife.model.GameModel;
 import eric.gameoflife.setup.*;
+import eric.gameoflife.view.GameView;
 
 public class Main {
 	
@@ -13,6 +15,19 @@ public class Main {
 
 	public static void main(String[] args){
 		var dim = setup();
+		
+		var model = new GameModel(dim.width, dim.height);
+		var view = new GameView(dim.width, dim.height);
+		//var controller = new GameController(model, view);
+		
+		var frame = new JFrame();
+		frame.setTitle("Conway's Game of Life");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		//frame.setContentPane(view);
+
+		frame.pack();
+		frame.setVisible(true);
 	}
 	
 	private static Dimension setup(){
@@ -23,7 +38,7 @@ public class Main {
 		var controller = new SetupController(model, view);
 		
 		var frame = new JFrame();
-		frame.setTitle("Setup");
+		frame.setTitle("Conway's Game of Life Setup");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		frame.setContentPane(view);
