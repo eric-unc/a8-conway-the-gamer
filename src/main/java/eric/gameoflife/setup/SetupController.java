@@ -3,16 +3,10 @@ package eric.gameoflife.setup;
 import java.util.regex.Pattern;
 
 public class SetupController {
-
-	private SetupModel model;
-	private SetupView view;
 	
 	private Pattern pattern = Pattern.compile("^(\\d+)x(\\d+)$");
 	
 	public SetupController(SetupModel model, SetupView view){
-		this.model = model;
-		this.view = view;
-		
 		view.addButtonListener(e -> {
 			var matcher = pattern.matcher(view.getEntry());
 			
