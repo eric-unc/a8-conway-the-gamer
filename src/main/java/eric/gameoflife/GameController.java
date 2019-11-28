@@ -15,7 +15,12 @@ public class GameController {
 			if(changedCoords == null)
 				newField.forEach(cell -> view.updateField(cell.getX(), cell.getY(), cell.isAlive()));
 			else
-				changedCoords.forEach((x, y) -> view.updateField(x, y, newField.getCell(x, y).isAlive()));
+				changedCoords.forEach(coord -> 
+				view.updateField(coord.getX(), coord.getY(), newField.getCell(coord.getX(), coord.getY()).isAlive()));
+			System.out.println("Model update");
+			//view.updateField(0, 0, newField.getCell(0, 0).isAlive());
+			//changedCoords.forEach((x, y) -> view.updateField(x, y, newField.getCell(x, y).isAlive()));
+			//newField.forEach(cell -> view.updateField(cell.getX(), cell.getY(), cell.isAlive()));
 		});
 		
 		view.addClickEventsToField((cell, event) -> {

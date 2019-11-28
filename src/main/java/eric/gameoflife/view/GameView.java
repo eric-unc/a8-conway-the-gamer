@@ -17,7 +17,7 @@ public class GameView extends JPanel {
 		add(field);
 	}
 	
-	private static int getSideSize(int width, int height){ // TODO: implement numbers that make sense here
+	private static int getSideSize(int width, int height){
 		var toComp = width > height ? width : height; // max of width and height
 		
 		if(toComp <= 20)

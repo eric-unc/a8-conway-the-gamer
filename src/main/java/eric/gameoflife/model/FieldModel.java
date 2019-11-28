@@ -3,9 +3,12 @@ package eric.gameoflife.model;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import eric.gameoflife.settings.SettingsController;
+import eric.gameoflife.settings.SettingsModel;
+
 public class FieldModel implements Iterable<CellModel> {
 	
-	public static final boolean IS_TARIC_MODE = true; // TODO: convert into setting
+	//public static final boolean IS_TARIC_MODE = true; // TODO: convert into setting
 
 	private CellModel[][] field; // This y, then x
 						// This is a bit confusing but arrays are go like...
@@ -34,7 +37,7 @@ public class FieldModel implements Iterable<CellModel> {
 	}
 	
 	private boolean isInputValid(int x, int y){
-		if(IS_TARIC_MODE)
+		if(SettingsController.createController().getSetingsModel().isTaricMode())
 			return true;
 		
 		return maxY >= y && y >= 0 && maxX >= x && x >= 0;
@@ -115,6 +118,8 @@ public class FieldModel implements Iterable<CellModel> {
 			for(var itY = -1; itY <= 1; itY++)
 				if(!(itX == 0 && itY == 0) && isInputValid(x + itX, y + itY))
 					ret.add(getCell(x + itX, y + itY));
+		
+		System.out.println(ret.size());
 		
 		return ret;
 	}

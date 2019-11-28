@@ -1,7 +1,7 @@
 package eric.gameoflife.model;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
 public interface FieldChangeEvent {
-	void onChange(FieldModel newField, HashMap<Integer, Integer> changedCoords); // x, y
+	void onChange(FieldModel newField, ArrayList<Coordinate> changedCoords); // x, y
 }

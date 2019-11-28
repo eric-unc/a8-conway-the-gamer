@@ -1,7 +1,6 @@
 package eric.gameoflife.model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class GameModel {
 	
@@ -16,7 +15,7 @@ public class GameModel {
 	public static final boolean IS_PAUSED = false; // I WILL NEVER PAUSE!
 	
 	// This pauses for _ miliseconds
-	public static final int ROUND_BREAK = 1000;
+	public static final int ROUND_BREAK = 5000;
 	
 	private FieldModel field;
 	private ArrayList<FieldChangeEvent> changeEvents = new ArrayList<>();
@@ -50,18 +49,45 @@ public class GameModel {
 	
 	public synchronized void doRound(){ // I think this has to be synchronized. can't do two rounds at once.
 		var newField = field.clone(); // We can't modify the grid while iterating through it or it'll break the results
-		var changedCoords = new HashMap<Integer, Integer>();
+		var changedCoords = new ArrayList<Coordinate>();
 		
 		field.forEach(cell -> {
 			var aliveNeighbors = field.getAliveNeighbors(cell).size();
 			
-			if(cell.isAlive() && (aliveNeighbors < LOW_SURVIVAL_THRESHOLD || aliveNeighbors > HIGH_SURVIVAL_THRESHOLD)){
+			/*if(cell.isAlive() && (aliveNeighbors < LOW_SURVIVAL_THRESHOLD || aliveNeighbors > HIGH_SURVIVAL_THRESHOLD)){
 				newField.getCell(cell.getX(), cell.getY()).kill();
-				changedCoords.put(cell.getX(), cell.getY());
+				changedCoords.add(new Coordinate(cell.getX(), cell.getY()));
 			}else if(cell.isDead() && aliveNeighbors >= LOW_BIRTH_THRESHOLD && aliveNeighbors <= HIGH_BIRTH_THRESHOLD){
 				newField.getCell(cell.getX(), cell.getY()).revive();
-				changedCoords.put(cell.getX(), cell.getY());
+				changedCoords.add(new Coordinate(cell.getX(), cell.getY()));
+			}*/
+			
+			/*if(cell.isAlive() && !(aliveNeighbors == 2 || aliveNeighbors == 3)){
+				newField.getCell(cell.getX(), cell.getY()).kill();
+				changedCoords.add(new Coordinate(cell.getX(), cell.getY()));
+			}else if(cell.isDead() && aliveNeighbors == 3){
+				newField.getCell(cell.getX(), cell.getY()).revive();
+				changedCoords.add(new Coordinate(cell.getX(), cell.getY()));
+			}*/
+			if(cell.isAlive())
+				if(aliveNeighbors == 0 || aliveNeighbors == 1){
+					newField.getCell(cell.getX(), cell.getY()).kill();
+					changedCoords.add(new Coordinate(cell.getX(), cell.getY()));
+				}
+			else if(cell.isDead())
+				if(aliveNeighbors == 3){
+					newField.getCell(cell.getX(), cell.getY()).revive();
+					changedCoords.add(new Coordinate(cell.getX(), cell.getY()));
+				}
+			
+			// Debug code. Simply inverts each cell
+			/*if(cell.isAlive()){
+				newField.getCell(cell.getX(), cell.getY()).kill();
+			}else{
+				newField.getCell(cell.getX(), cell.getY()).revive();
 			}
+			
+			changedCoords.add(new Coordinate(cell.getX(), cell.getY()));*/
 		});
 		
 		field = newField;
@@ -72,8 +98,8 @@ public class GameModel {
 	public synchronized void invertCell(int x, int y){
 		field.getCell(x, y).invertLiveliness();
 		
-		var changedCoords = new HashMap<Integer, Integer>();
-		changedCoords.put(x, y);
+		var changedCoords = new ArrayList<Coordinate>();
+		changedCoords.add(new Coordinate(x, y));
 		
 		notifyChangeEvents(changedCoords);
 	}
@@ -99,7 +125,7 @@ public class GameModel {
 	}
 	
 	// Accepts null for changedCoords if the full field should be reset
-	private void notifyChangeEvents(HashMap<Integer, Integer> changedCoords){
+	private void notifyChangeEvents(ArrayList<Coordinate> changedCoords){
 		changeEvents.forEach(event -> event.onChange(field.clone(), changedCoords));
 	}
 }
