@@ -2,23 +2,14 @@ package eric.gameoflife.model;
 
 import java.util.ArrayList;
 
+import eric.gameoflife.Coordinate;
+import eric.gameoflife.settings.SettingsController;
+
 public class GameModel {
-	
-	// These constants are temporary for right now
-	public static final int LOW_BIRTH_THRESHOLD = 2;
-	public static final int HIGH_BIRTH_THRESHOLD = 3;
-	
-	// Yeah they're the same
-	public static final int LOW_SURVIVAL_THRESHOLD = 3;
-	public static final int HIGH_SURVIVAL_THRESHOLD = 3;
-	
-	public static final boolean IS_PAUSED = false; // I WILL NEVER PAUSE!
-	
-	// This pauses for _ miliseconds
-	public static final int ROUND_BREAK = 5000;
 	
 	private FieldModel field;
 	private ArrayList<FieldChangeEvent> changeEvents = new ArrayList<>();
+	private boolean isPaused = true;
 	
 	public GameModel(int width, int height){
 		field = new FieldModel(width, height);
@@ -27,21 +18,16 @@ public class GameModel {
 			@Override
 			public void run(){
 				try{
-					Thread.sleep(10_000);
-				}catch(InterruptedException e1){
-					e1.printStackTrace();
-				} //TODO: remove
-				
-				while(true)
-					if(!IS_PAUSED){
-						try{
-							Thread.sleep(ROUND_BREAK);
-						}catch(InterruptedException e){
-							e.printStackTrace();
+					while(true){
+						Thread.sleep(1); // Don't ask why, but any statement can be here
+						if(!isPaused){
+							Thread.sleep(SettingsController.getRoundBreakTime());
+							doRound();
 						}
-						
-						doRound();
 					}
+				}catch(InterruptedException e){
+					e.printStackTrace();
+				}
 				
 			}
 		}).start();
@@ -54,40 +40,17 @@ public class GameModel {
 		field.forEach(cell -> {
 			var aliveNeighbors = field.getAliveNeighbors(cell).size();
 			
-			/*if(cell.isAlive() && (aliveNeighbors < LOW_SURVIVAL_THRESHOLD || aliveNeighbors > HIGH_SURVIVAL_THRESHOLD)){
+			if(cell.isAlive() && (aliveNeighbors < SettingsController.getLowSurvivalThreshold() 
+					|| aliveNeighbors > SettingsController.getHighSurvivalThreshold())){
 				newField.getCell(cell.getX(), cell.getY()).kill();
 				changedCoords.add(new Coordinate(cell.getX(), cell.getY()));
-			}else if(cell.isDead() && aliveNeighbors >= LOW_BIRTH_THRESHOLD && aliveNeighbors <= HIGH_BIRTH_THRESHOLD){
+			}else if(cell.isDead() && aliveNeighbors >= SettingsController.getLowBirthThreshold() 
+					&& aliveNeighbors <= SettingsController.getHighBirthThreshold()){
 				newField.getCell(cell.getX(), cell.getY()).revive();
 				changedCoords.add(new Coordinate(cell.getX(), cell.getY()));
-			}*/
-			
-			/*if(cell.isAlive() && !(aliveNeighbors == 2 || aliveNeighbors == 3)){
-				newField.getCell(cell.getX(), cell.getY()).kill();
-				changedCoords.add(new Coordinate(cell.getX(), cell.getY()));
-			}else if(cell.isDead() && aliveNeighbors == 3){
-				newField.getCell(cell.getX(), cell.getY()).revive();
-				changedCoords.add(new Coordinate(cell.getX(), cell.getY()));
-			}*/
-			if(cell.isAlive())
-				if(aliveNeighbors == 0 || aliveNeighbors == 1){
-					newField.getCell(cell.getX(), cell.getY()).kill();
-					changedCoords.add(new Coordinate(cell.getX(), cell.getY()));
-				}
-			else if(cell.isDead())
-				if(aliveNeighbors == 3){
-					newField.getCell(cell.getX(), cell.getY()).revive();
-					changedCoords.add(new Coordinate(cell.getX(), cell.getY()));
-				}
-			
-			// Debug code. Simply inverts each cell
-			/*if(cell.isAlive()){
-				newField.getCell(cell.getX(), cell.getY()).kill();
-			}else{
-				newField.getCell(cell.getX(), cell.getY()).revive();
 			}
 			
-			changedCoords.add(new Coordinate(cell.getX(), cell.getY()));*/
+			changedCoords.add(new Coordinate(cell.getX(), cell.getY()));
 		});
 		
 		field = newField;
@@ -113,7 +76,7 @@ public class GameModel {
 	public synchronized void randomizeField(){
 		var newField = new FieldModel(field.getWidth(), field.getHeight());
 		
-		newField.forEach(cell -> cell.setStatus(Math.random() >= 5.0)); // Gives a 50-50 for cells being alive
+		newField.forEach(cell -> cell.setStatus(Math.random() >= 0.5)); // Gives a 50-50 for cells being alive
 		
 		field = newField;
 		
@@ -127,5 +90,13 @@ public class GameModel {
 	// Accepts null for changedCoords if the full field should be reset
 	private void notifyChangeEvents(ArrayList<Coordinate> changedCoords){
 		changeEvents.forEach(event -> event.onChange(field.clone(), changedCoords));
+	}
+	
+	public boolean isPaused(){
+		return isPaused;
+	}
+	
+	public void invertPause(){
+		isPaused = !isPaused;
 	}
 }

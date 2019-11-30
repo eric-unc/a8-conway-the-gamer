@@ -51,4 +51,9 @@ public class CellModel {
 	public void setStatus(boolean status){
 		isAlive = status;
 	}
+	
+	@Override
+	public CellModel clone(){
+		return new CellModel(x, y, isAlive);
+	}
 }

@@ -1,6 +1,7 @@
 package eric.gameoflife;
 
 import eric.gameoflife.model.GameModel;
+import eric.gameoflife.settings.SettingsController;
 import eric.gameoflife.view.GameView;
 
 public class GameController {
@@ -13,18 +14,21 @@ public class GameController {
 		
 		model.addChangeEvent((newField, changedCoords) -> {
 			if(changedCoords == null)
-				newField.forEach(cell -> view.updateField(cell.getX(), cell.getY(), cell.isAlive()));
+				newField.forEach(cell -> view.updateField(cell.getX(), cell.getY(), cell.isAlive())); // updates all
 			else
-				changedCoords.forEach(coord -> 
-				view.updateField(coord.getX(), coord.getY(), newField.getCell(coord.getX(), coord.getY()).isAlive()));
-			System.out.println("Model update");
-			//view.updateField(0, 0, newField.getCell(0, 0).isAlive());
-			//changedCoords.forEach((x, y) -> view.updateField(x, y, newField.getCell(x, y).isAlive()));
-			//newField.forEach(cell -> view.updateField(cell.getX(), cell.getY(), cell.isAlive()));
+				changedCoords.forEach(coord -> view.updateField(coord, newField.getCell(coord).isAlive()));
 		});
 		
-		view.addClickEventsToField((cell, event) -> {
-			model.invertCell(cell.getFieldX(), cell.getFieldY());
+		view.addClickEventsToField((cell, event) -> model.invertCell(cell.getFieldX(), cell.getFieldY()));
+		
+		view.addPauseButtonListener(event -> {
+			view.invertPause();
+			model.invertPause();
 		});
+		
+		view.addAdvanceButtonListener(event -> model.doRound());
+		view.addClearButtonListener(event -> model.clearField());
+		view.addRandomizeButtonListener(event -> model.randomizeField());
+		view.addSettingsButtonListener(event -> SettingsController.showSettings());
 	}
 }

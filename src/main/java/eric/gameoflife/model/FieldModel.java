@@ -3,8 +3,8 @@ package eric.gameoflife.model;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import eric.gameoflife.Coordinate;
 import eric.gameoflife.settings.SettingsController;
-import eric.gameoflife.settings.SettingsModel;
 
 public class FieldModel implements Iterable<CellModel> {
 	
@@ -37,7 +37,7 @@ public class FieldModel implements Iterable<CellModel> {
 	}
 	
 	private boolean isInputValid(int x, int y){
-		if(SettingsController.createController().getSetingsModel().isTaricMode())
+		if(SettingsController.isTaricMode())
 			return true;
 		
 		return maxY >= y && y >= 0 && maxX >= x && x >= 0;
@@ -87,6 +87,10 @@ public class FieldModel implements Iterable<CellModel> {
 		return field[fixY(y)][fixX(x)]; 
 	}
 	
+	public CellModel getCell(Coordinate coord){
+		return getCell(coord.getX(), coord.getY());
+	}
+	
 	public boolean isCellAlive(int x, int y){
 		return getCell(x, y).isAlive();
 	}
@@ -118,8 +122,6 @@ public class FieldModel implements Iterable<CellModel> {
 			for(var itY = -1; itY <= 1; itY++)
 				if(!(itX == 0 && itY == 0) && isInputValid(x + itX, y + itY))
 					ret.add(getCell(x + itX, y + itY));
-		
-		System.out.println(ret.size());
 		
 		return ret;
 	}
@@ -160,7 +162,10 @@ public class FieldModel implements Iterable<CellModel> {
 	public FieldModel clone(){
 		var ret = new FieldModel(field.length, field[0].length);
 		
-		ret.field = field.clone();
+		//ret.field = field.clone(); // <- this doesn't work
+		for(var y = 0; y < ret.field.length; y++)
+			for(var x = 0; x < ret.field[y].length; x++)
+				ret.field[y][x] = getCell(x, y).clone(); // Initializing all of the cells in the grid
 		
 		return ret;
 	}

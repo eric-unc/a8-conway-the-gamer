@@ -1,4 +1,4 @@
-package eric.gameoflife.model;
+package eric.gameoflife;
 
 public class Coordinate {
 	private int x;
