@@ -53,7 +53,7 @@ public class SetupView extends JPanel {
 		message.setText(newMessage);
 	}
 	
-	public void addButtonListener(ActionListener e){
-		enter.addActionListener(e);
+	public void addButtonListener(ActionListener event){
+		enter.addActionListener(event);
 	}
 }

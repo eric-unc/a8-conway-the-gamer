@@ -1,15 +1,17 @@
 package eric.gameoflife.settings;
 
 public class SettingsModel {
-	private int lowBirthThreshold = 3;
-	private int highBirthThreshold = 3;
+	private int lowBirthThreshold = DefaultSettings.LOW_BIRTH_THRESHOLD;
+	private int highBirthThreshold = DefaultSettings.HIGH_BIRTH_THRESHOLD;
 	
-	private int lowSurvivalThreshold = 2;
-	private int highSurvivalThreshold = 3;
+	private int lowSurvivalThreshold = DefaultSettings.LOW_SURVIVAL_THRESHOLD;
+	private int highSurvivalThreshold = DefaultSettings.HIGH_SURVIVAL_THRESHOLD;
 	
-	private int roundBreakTime = 1000; // in miliseconds
+	private long roundBreakTime = DefaultSettings.ROUND_BREAK_TIME; // in miliseconds
 	
-	private boolean isTaricMode = false;
+	private boolean isTaricMode = DefaultSettings.IS_TARIC_MODE;
+	
+	private boolean isKMPMode = DefaultSettings.IS_KMP_MODE;
 	
 	public SettingsModel(){
 		
@@ -47,11 +49,11 @@ public class SettingsModel {
 		this.highSurvivalThreshold = highSurvivalThreshold;
 	}
 
-	public int getRoundBreakTime(){
+	public long getRoundBreakTime(){
 		return roundBreakTime;
 	}
 
-	public void setRoundBreakTime(int roundBreakTime){
+	public void setRoundBreakTime(long roundBreakTime){
 		this.roundBreakTime = roundBreakTime;
 	}
 
@@ -65,5 +67,17 @@ public class SettingsModel {
 	
 	public void invertTaricMode(){
 		isTaricMode = !isTaricMode;
+	}
+	
+	public boolean isKMPMode(){
+		return isKMPMode;
+	}
+
+	public void setKMPMode(boolean isKMPMode){
+		this.isKMPMode = isKMPMode;
+	}
+	
+	public void invertKMPMode(){
+		isKMPMode = !isKMPMode;
 	}
 }

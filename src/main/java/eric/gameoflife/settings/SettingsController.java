@@ -13,6 +13,86 @@ public class SettingsController {
 	private SettingsController(SettingsModel model, SettingsView view){
 		this.model = model;
 		this.view = view;
+		
+		view.addLowBirthThreshholdButton(event -> {
+			try {
+				var newThreshold = Integer.parseInt(view.getLowBirthThreshholdText());
+				
+				if(newThreshold < 0 || newThreshold > 8 || newThreshold > model.getHighBirthThreshold())
+					throw new IllegalArgumentException();
+				
+				model.setLowBirthThreshold(newThreshold);
+			}catch(IllegalArgumentException ex){
+				view.setLowBirthThreshholdText(Integer.toString(DefaultSettings.LOW_BIRTH_THRESHOLD));
+			}
+		});
+		
+		view.addHighBirthThreshholdButton(event -> {
+			try {
+				var newThreshold = Integer.parseInt(view.getHighBirthThreshholdText());
+				
+				if(newThreshold < 0 || newThreshold > 8 || newThreshold < model.getLowBirthThreshold())
+					throw new IllegalArgumentException();
+				
+				model.setHighBirthThreshold(newThreshold);
+			}catch(IllegalArgumentException ex){
+				view.setHighBirthThreshholdText(Integer.toString(DefaultSettings.HIGH_BIRTH_THRESHOLD));
+			}
+		});
+		
+		view.addLowSurvivalThreshholdButton(event -> {
+			try {
+				var newThreshold = Integer.parseInt(view.getLowSurvivalThreshholdText());
+				
+				if(newThreshold < 0 || newThreshold > 8 || newThreshold > model.getHighSurvivalThreshold())
+					throw new IllegalArgumentException();
+				
+				model.setLowSurvivalThreshold(newThreshold);
+			}catch(IllegalArgumentException ex){
+				view.setLowSurvivalThreshholdText(Integer.toString(DefaultSettings.LOW_SURVIVAL_THRESHOLD));
+			}
+		});
+		
+		view.addHighSurvivalThreshholdButton(event -> {
+			try {
+				var newThreshold = Integer.parseInt(view.getHighSurvivalThreshholdText());
+				
+				if(newThreshold < 0 || newThreshold > 8 || newThreshold < model.getLowSurvivalThreshold())
+					throw new IllegalArgumentException();
+				
+				model.setHighSurvivalThreshold(newThreshold);
+			}catch(IllegalArgumentException ex){
+				view.setHighSurvivalThreshholdText(Integer.toString(DefaultSettings.HIGH_SURVIVAL_THRESHOLD));
+			}
+		});
+		
+		view.addRoundBreakTimeButton(event -> {
+			try {
+				var newBreakTime = Integer.parseInt(view.getRoundBreakTimeText());
+				
+				if(newBreakTime < 10 || newBreakTime > 1000)
+					throw new IllegalArgumentException();
+				
+				model.setRoundBreakTime(newBreakTime);
+			}catch(IllegalArgumentException ex){
+				view.setRoundBreakTimeText(Long.toString(DefaultSettings.ROUND_BREAK_TIME));
+			}
+		});
+		
+		view.addIsTaricModeButton(e -> {
+			var taricMode = view.getIsTaricModeButtonText();
+			
+			switch(taricMode){
+			case "True":
+				view.setIsTaricModeButtonText("False");
+				model.setTaricMode(false);
+				break;
+			case "False":
+				view.setIsTaricModeButtonText("True");
+				model.setTaricMode(true);
+				break;
+			}
+		});
 	}
 
 	public SettingsModel getSetingsModel(){
@@ -62,11 +142,15 @@ public class SettingsController {
 		return getController().getSetingsModel().getHighSurvivalThreshold();
 	}
 	
-	public static int getRoundBreakTime(){
+	public static long getRoundBreakTime(){
 		return getController().getSetingsModel().getRoundBreakTime();
 	}
 	
 	public static boolean isTaricMode(){
 		return getController().getSetingsModel().isTaricMode();
+	}
+	
+	public static boolean isKMPMode(){
+		return getController().getSetingsModel().isKMPMode();
 	}
 }
