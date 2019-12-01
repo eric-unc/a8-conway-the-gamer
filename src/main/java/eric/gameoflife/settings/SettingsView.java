@@ -23,7 +23,7 @@ public class SettingsView extends JPanel {
 	private JTextField roundBreakTimeTextField;
 	private JButton roundBreakTimeButton;
 	
-	private JButton isTaricModeButton;
+	private JButton isTorusModeButton;
 
 	public SettingsView(){
 		setLayout(new GridLayout(3, 2)); // width, height
@@ -88,14 +88,14 @@ public class SettingsView extends JPanel {
 
 		add(roundBreakTime);
 		
-		// is taric mode
-		var isTaricMode = new JPanel();
-		isTaricMode.add(new JLabel("Taric mode"));
+		// is torus mode
+		var isTorusMode = new JPanel();
+		isTorusMode.add(new JLabel("Torus mode"));
 		
-		isTaricModeButton = new JButton("False");
-		isTaricMode.add(isTaricModeButton);
+		isTorusModeButton = new JButton("False");
+		isTorusMode.add(isTorusModeButton);
 		
-		add(isTaricMode);
+		add(isTorusMode);
 	}
 
 	// birth methods
@@ -164,15 +164,15 @@ public class SettingsView extends JPanel {
 	}
 	
 	// booleans
-	public String getIsTaricModeButtonText(){
-		return isTaricModeButton.getText();
+	public String getIsTorusModeButtonText(){
+		return isTorusModeButton.getText();
 	}
 	
-	public void setIsTaricModeButtonText(String text){
-		isTaricModeButton.setText(text);
+	public void setIsTorusModeButtonText(String text){
+		isTorusModeButton.setText(text);
 	}
 
-	public void addIsTaricModeButton(ActionListener event){
-		isTaricModeButton.addActionListener(event);
+	public void addIsTorusModeButton(ActionListener event){
+		isTorusModeButton.addActionListener(event);
 	}
 }

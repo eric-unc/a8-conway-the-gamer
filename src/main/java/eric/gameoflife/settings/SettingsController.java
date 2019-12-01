@@ -79,38 +79,30 @@ public class SettingsController {
 			}
 		});
 		
-		view.addIsTaricModeButton(e -> {
-			var taricMode = view.getIsTaricModeButtonText();
+		view.addIsTorusModeButton(e -> {
+			var torusMode = view.getIsTorusModeButtonText();
 			
-			switch(taricMode){
+			switch(torusMode){
 			case "True":
-				view.setIsTaricModeButtonText("False");
-				model.setTaricMode(false);
+				view.setIsTorusModeButtonText("False");
+				model.setTorusMode(false);
 				break;
 			case "False":
-				view.setIsTaricModeButtonText("True");
-				model.setTaricMode(true);
+				view.setIsTorusModeButtonText("True");
+				model.setTorusMode(true);
 				break;
 			}
 		});
 	}
 
-	public SettingsModel getSetingsModel(){
-		return model;
-	}
-	
-	public SettingsView getSettingsView(){
-		return view;
-	}
-	
-	public static SettingsController getController(){
+	private static SettingsController getController(){
 		if(controller == null){
 			controller = new SettingsController(new SettingsModel(), new SettingsView());
 			
 			frame = new JFrame();
 			frame.setTitle("Settings");
 			frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-			frame.setContentPane(controller.getSettingsView());
+			frame.setContentPane(controller.view);
 			frame.setResizable(false);
 
 			frame.pack();
@@ -127,30 +119,30 @@ public class SettingsController {
 	}
 	
 	public static int getLowBirthThreshold(){
-		return getController().getSetingsModel().getLowBirthThreshold();
+		return getController().model.getLowBirthThreshold();
 	}
 	
 	public static int getHighBirthThreshold(){
-		return getController().getSetingsModel().getHighBirthThreshold();
+		return getController().model.getHighBirthThreshold();
 	}
 	
 	public static int getLowSurvivalThreshold(){
-		return getController().getSetingsModel().getLowSurvivalThreshold();
+		return getController().model.getLowSurvivalThreshold();
 	}
 	
 	public static int getHighSurvivalThreshold(){
-		return getController().getSetingsModel().getHighSurvivalThreshold();
+		return getController().model.getHighSurvivalThreshold();
 	}
 	
 	public static long getRoundBreakTime(){
-		return getController().getSetingsModel().getRoundBreakTime();
+		return getController().model.getRoundBreakTime();
 	}
 	
-	public static boolean isTaricMode(){
-		return getController().getSetingsModel().isTaricMode();
+	public static boolean isTorusMode(){
+		return getController().model.isTorusMode();
 	}
 	
 	public static boolean isKMPMode(){
-		return getController().getSetingsModel().isKMPMode();
+		return getController().model.isKMPMode();
 	}
 }

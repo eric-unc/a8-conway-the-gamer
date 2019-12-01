@@ -9,7 +9,7 @@ public class SettingsModel {
 	
 	private long roundBreakTime = DefaultSettings.ROUND_BREAK_TIME; // in miliseconds
 	
-	private boolean isTaricMode = DefaultSettings.IS_TARIC_MODE;
+	private boolean isTorusMode = DefaultSettings.IS_TORUS_MODE;
 	
 	private boolean isKMPMode = DefaultSettings.IS_KMP_MODE;
 	
@@ -57,16 +57,16 @@ public class SettingsModel {
 		this.roundBreakTime = roundBreakTime;
 	}
 
-	public boolean isTaricMode(){
-		return isTaricMode;
+	public boolean isTorusMode(){
+		return isTorusMode;
 	}
 
-	public void setTaricMode(boolean isTaricMode){
-		this.isTaricMode = isTaricMode;
+	public void setTorusMode(boolean isTorusMode){
+		this.isTorusMode = isTorusMode;
 	}
 	
-	public void invertTaricMode(){
-		isTaricMode = !isTaricMode;
+	public void invertTorusMode(){
+		isTorusMode = !isTorusMode;
 	}
 	
 	public boolean isKMPMode(){

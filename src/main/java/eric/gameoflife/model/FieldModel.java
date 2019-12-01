@@ -37,14 +37,14 @@ public class FieldModel implements Iterable<CellModel> {
 	}
 	
 	private boolean isInputValid(int x, int y){
-		if(SettingsController.isTaricMode())
+		if(SettingsController.isTorusMode())
 			return true;
 		
 		return maxY >= y && y >= 0 && maxX >= x && x >= 0;
 	}
 	
 	/**
-	 * This is only used in Taric Mode
+	 * This is only used in Torus Mode
 	 * 
 	 * @param x the x value
 	 * @return the fixed value
@@ -64,7 +64,7 @@ public class FieldModel implements Iterable<CellModel> {
 	}
 	
 	/**
-	 * This is only used in Taric Mode
+	 * This is only used in Torus Mode
 	 * 
 	 * @param y the y value
 	 * @return the fixed value

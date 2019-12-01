@@ -13,7 +13,7 @@ public class DefaultSettings {
 	public static final long ROUND_BREAK_TIME = 1000;
 	
 	// True or false (duh)
-	public static final boolean IS_TARIC_MODE = false;
+	public static final boolean IS_TORUS_MODE = false;
 	
 	public static final boolean IS_KMP_MODE = false;
 }
