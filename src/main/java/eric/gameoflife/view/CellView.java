@@ -1,13 +1,19 @@
 package eric.gameoflife.view;
 
-import javax.swing.JPanel;
+import static eric.gameoflife.view.CellView.Type.COLOR;
 
-import static eric.gameoflife.view.CellView.Type.*;
-
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
+import javax.swing.JPanel;
+
+import eric.gameoflife.settings.SettingsController;
 
 @SuppressWarnings("serial")
 public class CellView extends JPanel {
@@ -38,7 +44,7 @@ public class CellView extends JPanel {
 	}
 	
 	public CellView(Type type, boolean isAlive, int sideSize, int x, int y){
-		this.type = type;
+		this.type = sideSize >= 20 ? type : Type.COLOR;
 		this.isAlive = isAlive;
 		this.sideSize = sideSize;
 		this.x = x;
@@ -83,7 +89,19 @@ public class CellView extends JPanel {
 			graphic.setColor(isAlive ? Color.BLACK : Color.WHITE);
 			graphic.fillRect(0, 0, sideSize, sideSize);
 			break;
-		case KMP: // umm wip
+		case KMP:
+			try {
+				if(isAlive)
+					graphic.drawImage(ImageIO.read(new File("src/main/resources/kmp.png")), x, y, Color.BLUE, null);
+				else{
+					graphic.setColor(Color.WHITE);
+					graphic.fillRect(0, 0, sideSize, sideSize);
+				}
+				
+				break;
+			}catch(IOException e){
+				e.printStackTrace();
+			}
 		}
 		
 		if(sideSize >= 4){
@@ -95,6 +113,15 @@ public class CellView extends JPanel {
 			graphic.setColor(Color.YELLOW);
 			graphic.drawRect(1, 1, sideSize - 1, sideSize - 1);
 		}
+	}
+	
+	@Override
+	public void repaint(){
+		var type = SettingsController.isKMPMode() ? Type.KMP : Type.COLOR;
+		
+		this.type = sideSize >= 20 ? type : Type.COLOR;
+		
+		super.repaint();
 	}
 	
 	public void setLiveliness(boolean isAlive){

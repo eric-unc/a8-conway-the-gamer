@@ -22,8 +22,10 @@ public class SettingsView extends JPanel {
 
 	private JTextField roundBreakTimeTextField;
 	private JButton roundBreakTimeButton;
-	
+
 	private JButton isTorusModeButton;
+
+	private JButton isKMPModeButton;
 
 	public SettingsView(){
 		setLayout(new GridLayout(3, 2)); // width, height
@@ -87,15 +89,24 @@ public class SettingsView extends JPanel {
 		roundBreakTime.add(roundBreakTimeButton);
 
 		add(roundBreakTime);
-		
+
 		// is torus mode
 		var isTorusMode = new JPanel();
 		isTorusMode.add(new JLabel("Torus mode"));
-		
+
 		isTorusModeButton = new JButton("False");
 		isTorusMode.add(isTorusModeButton);
-		
+
 		add(isTorusMode);
+
+		// is KMP mode
+		var isKMPMode = new JPanel();
+		isKMPMode.add(new JLabel("KMP mode [only for advanced users]"));
+
+		isKMPModeButton = new JButton("False");
+		isKMPMode.add(isKMPModeButton);
+
+		add(isKMPMode);
 	}
 
 	// birth methods
@@ -149,7 +160,7 @@ public class SettingsView extends JPanel {
 	public void addHighSurvivalThreshholdButton(ActionListener event){
 		highBirthThreshholdButton.addActionListener(event);
 	}
-	
+
 	// round break time
 	public String getRoundBreakTimeText(){
 		return roundBreakTimeTextField.getText();
@@ -162,17 +173,29 @@ public class SettingsView extends JPanel {
 	public void addRoundBreakTimeButton(ActionListener event){
 		roundBreakTimeButton.addActionListener(event);
 	}
-	
+
 	// booleans
 	public String getIsTorusModeButtonText(){
 		return isTorusModeButton.getText();
 	}
-	
+
 	public void setIsTorusModeButtonText(String text){
 		isTorusModeButton.setText(text);
 	}
 
 	public void addIsTorusModeButton(ActionListener event){
 		isTorusModeButton.addActionListener(event);
+	}
+	
+	public String getIsKMPModeButtonText(){
+		return isKMPModeButton.getText();
+	}
+
+	public void setIsKMPModeButtonText(String text){
+		isKMPModeButton.setText(text);
+	}
+
+	public void addIsKMPModeButton(ActionListener event){
+		isKMPModeButton.addActionListener(event);
 	}
 }

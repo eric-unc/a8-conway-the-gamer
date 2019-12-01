@@ -2,6 +2,8 @@ package eric.gameoflife.settings;
 
 import javax.swing.JFrame;
 
+import eric.gameoflife.Main;
+
 public class SettingsController {
 
 	private static JFrame frame;
@@ -92,6 +94,23 @@ public class SettingsController {
 				model.setTorusMode(true);
 				break;
 			}
+		});
+		
+		view.addIsKMPModeButton(e -> {
+			var KMPMode = view.getIsKMPModeButtonText();
+			
+			switch(KMPMode){
+			case "True":
+				view.setIsKMPModeButtonText("False");
+				model.setKMPMode(false);
+				break;
+			case "False":
+				view.setIsKMPModeButtonText("True");
+				model.setKMPMode(true);
+				break;
+			}
+			
+			Main.controller.updateView();
 		});
 	}
 

@@ -5,6 +5,9 @@ import java.awt.GridLayout;
 
 import javax.swing.JPanel;
 
+import eric.gameoflife.settings.SettingsController;
+import eric.gameoflife.view.CellView.Type;
+
 @SuppressWarnings("serial")
 public class FieldView extends JPanel {
 	private int width; // number of cells, not the pixels
@@ -24,7 +27,7 @@ public class FieldView extends JPanel {
 		
 		for(var y = 0; y < field.length; y++)
 			for(var x = 0; x < field[y].length; x++){
-				field[y][x] = new CellView(sideSize, x, y);
+				field[y][x] = new CellView(SettingsController.isKMPMode() ? Type.KMP : Type.COLOR, sideSize, x, y);
 				add(field[y][x]);
 			}
 		

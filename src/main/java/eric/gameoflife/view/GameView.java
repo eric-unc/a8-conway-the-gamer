@@ -65,12 +65,18 @@ public class GameView extends JPanel {
 			return 1;
 	}
 	
+	public void updateField(Coordinate coord, boolean isAlivevent){
+		updateField(coord.getX(), coord.getY(), isAlivevent);
+	}
+	
 	public void updateField(int x, int y, boolean isAlivevent){
 		field.getCell(x, y).setLiveliness(isAlivevent);
 	}
 	
-	public void updateField(Coordinate coord, boolean isAlivevent){
-		updateField(coord.getX(), coord.getY(), isAlivevent);
+	public void updateImages(){
+		for(var y = 0; y < field.getFieldHeight(); y++)
+			for(var x = 0; x < field.getFieldWidth(); x++)
+				field.getCell(x, y).repaint();
 	}
 	
 	public void addClickEventsToField(MouseClickEvent event){

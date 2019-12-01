@@ -5,7 +5,11 @@ import eric.gameoflife.settings.SettingsController;
 import eric.gameoflife.view.GameView;
 
 public class GameController {
+	private GameView view;
+	
 	public GameController(GameModel model, GameView view){
+		this.view = view;
+		
 		model.addChangeEvent((newField, changedCoords) -> {
 			if(changedCoords == null)
 				newField.forEach(cell -> view.updateField(cell.getX(), cell.getY(), cell.isAlive())); // updates all
@@ -24,5 +28,9 @@ public class GameController {
 		view.addClearButtonListener(event -> model.clearField());
 		view.addRandomizeButtonListener(event -> model.randomizeField());
 		view.addSettingsButtonListener(event -> SettingsController.showSettings());
+	}
+	
+	public void updateView(){
+		view.updateImages();
 	}
 }

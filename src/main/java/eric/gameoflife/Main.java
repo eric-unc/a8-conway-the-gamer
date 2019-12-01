@@ -10,13 +10,15 @@ import eric.gameoflife.view.GameView;
 
 @SuppressWarnings("unused")
 public class Main {
+	
+	public static GameController controller;
 
 	public static void main(String[] args){
 		var dim = setup();
 
 		var model = new GameModel(dim.width, dim.height);
 		var view = new GameView(dim.width, dim.height);
-		var controller = new GameController(model, view);
+		controller = new GameController(model, view);
 
 		var frame = new JFrame();
 		frame.setTitle("Conway's Game of Life");
