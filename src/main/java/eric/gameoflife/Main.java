@@ -8,6 +8,7 @@ import eric.gameoflife.model.GameModel;
 import eric.gameoflife.setup.*;
 import eric.gameoflife.view.GameView;
 
+@SuppressWarnings("unused")
 public class Main {
 
 	public static void main(String[] args){
@@ -32,7 +33,6 @@ public class Main {
 		var model = new SetupModel();
 		var view = new SetupView();
 
-		@SuppressWarnings("unused")
 		var controller = new SetupController(model, view);
 
 		var frame = new JFrame();

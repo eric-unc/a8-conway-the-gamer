@@ -5,13 +5,7 @@ import eric.gameoflife.settings.SettingsController;
 import eric.gameoflife.view.GameView;
 
 public class GameController {
-	private GameModel model;
-	private GameView view;
-	
 	public GameController(GameModel model, GameView view){
-		this.model = model;
-		this.view = view;
-		
 		model.addChangeEvent((newField, changedCoords) -> {
 			if(changedCoords == null)
 				newField.forEach(cell -> view.updateField(cell.getX(), cell.getY(), cell.isAlive())); // updates all
