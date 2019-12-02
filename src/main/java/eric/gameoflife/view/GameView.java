@@ -49,7 +49,7 @@ public class GameView extends JPanel {
 	}
 	
 	private static int getSideSize(int width, int height){
-		var toComp = width > height ? width : height; // max of width and height
+		var toComp = width > height ? width : height;
 		
 		if(toComp <= 20)
 			return 32;

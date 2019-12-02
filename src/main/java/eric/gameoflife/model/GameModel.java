@@ -14,7 +14,7 @@ public class GameModel {
 	public GameModel(int width, int height){
 		field = new FieldModel(width, height);
 		
-		(new Thread(){ // Will this work? big doubt
+		(new Thread(){
 			@Override
 			public void run(){
 				try{

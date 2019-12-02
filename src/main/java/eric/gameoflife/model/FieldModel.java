@@ -8,8 +8,6 @@ import eric.gameoflife.settings.SettingsController;
 
 public class FieldModel implements Iterable<CellModel> {
 	
-	//public static final boolean IS_TARIC_MODE = true; // TODO: convert into setting
-
 	private CellModel[][] field; // This y, then x
 						// This is a bit confusing but arrays are go like...
 						// [ [C C C] ]
@@ -55,10 +53,10 @@ public class FieldModel implements Iterable<CellModel> {
 		
 		if(x >= 0)
 			while(x >= maxX)
-				x -= maxX;
+				x -= (maxX + 1);
 		else // x is negative
 			while(x < 0)
-				x += maxX;
+				x += (maxX + 1);
 		
 		return x;
 	}
@@ -75,10 +73,10 @@ public class FieldModel implements Iterable<CellModel> {
 		
 		if(y >= 0)
 			while(y >= maxY)
-				y -= maxY;
+				y -= (maxY + 1);
 		else // y is negative
 			while(y < 0)
-				y += maxY;
+				y += (maxY + 1);
 		
 		return y;
 	}
@@ -89,26 +87,6 @@ public class FieldModel implements Iterable<CellModel> {
 	
 	public CellModel getCell(Coordinate coord){
 		return getCell(coord.getX(), coord.getY());
-	}
-	
-	public boolean isCellAlive(int x, int y){
-		return getCell(x, y).isAlive();
-	}
-	
-	public boolean isCellDead(int x, int y){
-		return getCell(x, y).isDead();
-	}
-	
-	public void invertLiveliness(int x, int y){
-		getCell(x, y).invertLiveliness();
-	}
-	
-	public void kill(int x, int y){
-		getCell(x, y).kill();
-	}
-	
-	public void revive(int x, int y){
-		getCell(x, y).revive();
 	}
 	
 	public ArrayList<CellModel> getNeighbors(CellModel cell){
@@ -162,7 +140,6 @@ public class FieldModel implements Iterable<CellModel> {
 	public FieldModel clone(){
 		var ret = new FieldModel(field.length, field[0].length);
 		
-		//ret.field = field.clone(); // <- this doesn't work
 		for(var y = 0; y < ret.field.length; y++)
 			for(var x = 0; x < ret.field[y].length; x++)
 				ret.field[y][x] = getCell(x, y).clone(); // Initializing all of the cells in the grid

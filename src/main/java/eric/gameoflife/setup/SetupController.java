@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 
 public class SetupController {
 	
-	private Pattern pattern = Pattern.compile("^(\\d+)x(\\d+)$");
+	private final Pattern pattern = Pattern.compile("^(\\d+)x(\\d+)$");
 	
 	public SetupController(SetupModel model, SetupView view){
 		view.addButtonListener(e -> {

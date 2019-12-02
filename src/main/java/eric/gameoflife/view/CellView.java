@@ -126,12 +126,7 @@ public class CellView extends JPanel {
 	
 	public void setLiveliness(boolean isAlive){
 		this.isAlive = isAlive;
-		paintComponent(this.getGraphics());
-	}
-	
-	public void invertLiveliness(){
-		isAlive = !isAlive;
-		paintComponent(this.getGraphics());
+		repaint();
 	}
 	
 	public void addMouseClickEvent(MouseClickEvent event){
