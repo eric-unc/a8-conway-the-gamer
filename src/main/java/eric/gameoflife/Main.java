@@ -13,7 +13,7 @@ public class Main {
 	
 	public static GameController controller;
 
-	public static void main(String[] args){
+	public static void realMain(String[] args){
 		var dim = setup();
 
 		var model = new GameModel(dim.width, dim.height);
