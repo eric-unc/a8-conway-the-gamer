@@ -1,7 +1,7 @@
 # a8-conway-the-gamer
 This is [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway's_Game_of_Life).
 
-Images created by me.
+The Conway.png image was created by me, kmp.png was taken from online.
 
 According to my instructor:
 
@@ -22,4 +22,4 @@ An  advanced version of the game that will make you eligible for a grade step ev
 A start/stop button that advances the game automatically using a separate thread with a delay between updates settable between 10 milliseconds and 1 second.
 ```
 
-I'm lazy so I guess we'll see how this goes.
+This all works and meets all requirements (plus KMP mode) although I didn't get credit for it for some reason.
